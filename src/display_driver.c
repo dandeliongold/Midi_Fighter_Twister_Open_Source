@@ -672,8 +672,6 @@ void run_encoder_animation(uint8_t encoder, uint8_t bank, uint8_t animation, uin
 	} else if ((animation > 48) && (animation < 57)) {
 		// Read Directly from RAM		
 		uint8_t banked_encoder_id = encoder + bank*PHYSICAL_ENCODERS;
-		//encoder_config_t enc_cfg = encoder_settings[banked_encoder_id];
-
 		// Indicator Strobe Animation
 		if (!strobe_animation(animation-48)) {
 			set_encoder_indicator_level(encoder, indicator_value_buffer[bank][encoder], encoder_settings[banked_encoder_id].has_detent,
@@ -692,15 +690,6 @@ void run_encoder_animation(uint8_t encoder, uint8_t bank, uint8_t animation, uin
 		set_encoder_indicator_level(encoder, indicator_value_buffer[bank][encoder], encoder_settings[banked_encoder_id].has_detent,
 		encoder_settings[banked_encoder_id].indicator_display_type,
 		encoder_settings[banked_encoder_id].detent_color, level);
-
-		// Read from EEPROM
-		//encoder_config_t enc_cfg;
-		//get_encoder_config(bank, encoder, &enc_cfg); // !revision: lessen overhead of encoder animations, no need to read from EEPROM anymore with expanded encoder_settings
-		//uint8_t level = (uint8_t)(pulse_animation(animation - 55));
-		//set_encoder_indicator_level(encoder, indicator_value_buffer[bank][encoder], enc_cfg.has_detent,
-									//enc_cfg.indicator_display_type,
-									//enc_cfg.detent_color, level);
-		
 	} else if ((animation > 64) && (animation < 97)) {
 		// Read Directly from RAM
 		uint8_t banked_encoder_id = bank*PHYSICAL_ENCODERS + encoder;
@@ -709,17 +698,6 @@ void run_encoder_animation(uint8_t encoder, uint8_t bank, uint8_t animation, uin
 		set_encoder_indicator_level(encoder, indicator_value_buffer[bank][encoder], encoder_settings[banked_encoder_id].has_detent,
 		encoder_settings[banked_encoder_id].indicator_display_type,
 		encoder_settings[banked_encoder_id].detent_color, level);
-
-		// Read From EEPROM
-		//encoder_config_t enc_cfg;
-		//get_encoder_config(bank, encoder, &enc_cfg); // !revision: lessen overhead of encoder animations, no need to read from EEPROM anymore with expanded encoder_settings
-		//
-		//// Indicator Dimming Animation
-		//uint8_t level = (uint8_t)(2 * pgm_read_byte(&animationBrightnessMap[animation-65]));
-		//set_encoder_indicator_level(encoder, indicator_value_buffer[bank][encoder], enc_cfg.has_detent,
-									//enc_cfg.indicator_display_type,
-									//enc_cfg.detent_color, level);
-	
 	} else if (animation == 127) {
 		
 		// Rainbow state

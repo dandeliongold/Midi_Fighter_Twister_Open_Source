@@ -24,16 +24,11 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
-// Versioning: Version is Firmware Release Date
-//#define DEVICE_VERSION_YEAR 	0x2014
-//#define DEVICE_VERSION_MONTH	0x08
-//#define DEVICE_VERSION_DAY		0x13
-//#define DEVICE_VERSION  		((DEVICE_VERSION_YEAR << 16) | (DEVICE_VERSION_MONTH << 8) | DEVICE_VERSION_DAY)
 
 #define DEVICE_VERSION_YEAR 	0x2023
-#define DEVICE_VERSION_MONTH	0x06
-#define DEVICE_VERSION_DAY		0x08
-#define DEVICE_VERSION  		((DEVICE_VERSION_YEAR << 23) | (DEVICE_VERSION_MONTH << 6) | DEVICE_VERSION_DAY)
+#define DEVICE_VERSION_MONTH	0x09
+#define DEVICE_VERSION_DAY		0x03
+#define DEVICE_VERSION  		((DEVICE_VERSION_YEAR << 23) | (DEVICE_VERSION_MONTH << 9) | DEVICE_VERSION_DAY)
 
 // 14bit device family ID, LSB first
 #define DEVICE_FAMILY_LSB		0x05
@@ -61,11 +56,7 @@
 #define ENCODER_SWITCH_CHANNEL	  1
 #define SIDE_SWITCH_OFFSET        8
 #define SHIFT_OFFSET             44
-//#define ENCODER_CHANNEL	0 // Defined elsewhere
-//#define SWITCH_CHANNEL	1 // Defined elsewhere
 #define ENCODER_ANIMATION_CHANNEL 2
-//#define DEF_MIDI_CHANNEL		3 // TWISTER DEFAULT SETTINGS Channel for changing banks
-//#define ENCODER_SHIFTED_CHANNEL 4 // Defined elsewhere
 #define SWITCH_ANIMATION_CHANNEL  5
 
 // Debug & Test Harness Definitions ---------------------------------------
@@ -98,23 +89,10 @@
 #define EE_SIDE_SW_5_FUNC			0x0008  //Side Switch 5 function
 #define EE_SIDE_SW_6_FUNC			0x0009  //Side Switch 6 function
 #define EE_SUPER_KNOB_START			0x000A  //Super Knob Secondary CC start point
-#define EE_SUPER_KNOB_END			0x000B  //Super Knob Secondary CC start point
+#define EE_SUPER_KNOB_END			0x000B  //Super Knob Secondary CC end point
 #define EE_RGB_BRIGHTNESS			0x000C  //Global brightness setting for RGB
-#define EE_IND_BRIGHTNESS           0x000D  //Gobal brightness setting for indicators
+#define EE_IND_BRIGHTNESS           0x000D  //Global brightness setting for indicators
 
-#define EE_ENC_SETTING_START		0x0020  //Start of encoder settings
-#define EE_HAS_DETENT_OFFSET		0x0000  //Has Detent setting offset			    //
-#define EE_MOVEMENT_OFFSET			0x0001  //Movement setting offset               //
-#define EE_SW_ACT_TYPE_OFFSET		0x0002  //Switch Action Type offset				//
-#define EE_SW_MIDI_CH_OFFSET		0x0003  //Switch MIDI Type & Number				//
-#define EE_SW_MIDI_NUM_OFFSET		0x0004  //Switch MIDI Type & Number offset      //
-#define EE_SW_MIDI_TYPE_OFFSET		0x0005  //Switch MIDI Type & Number offset      //
-#define EE_ENC_MIDI_CH_OFFSET		0x0006  //Switch MIDI Type & Number             //
-#define EE_ENC_MIDI_NUM_OFFSET		0x0007  //Switch MIDI Type & Number offset      //
-#define EE_ENC_MIDI_TYPE_OFFSET		0x0008  //Switch MIDI Type & Number offset      //
-#define EE_DETENT_COLOR_OFFSET		0x000B  //Detent Color offset                   //
-#define EE_INDICATOR_TYPE_OFFSET	0x000C  //Indicator Style offset                //
-#define EE_ACTIVE_COLOR_OFFSET		0x0002  //Active Color offset					//
 #define EE_INACTIVE_COLOR_OFFSET	0x0003  //Inactive Color offset
 
 #define ENC_EE_SIZE 8
@@ -145,13 +123,13 @@
 #define DEF_ENC_DETENT          false
 #define DEF_ENC_MOVEMENT        DIRECT
 #define DEF_SW_ACTION           CC_HOLD
-#define DEF_SW_MIDI_TYPE		CC_HOLD			// Deprecated - should be REMOVED
 #define DEF_ENC_MIDI_TYPE       SEND_CC			// Default to CC define as 0x00 for Note
 #define DEF_ENC_CH		        0x00            // Enc def Ch = 0
 #define DEF_SW_CH		        0x01            // SW  def Ch = 1
-#define DEF_ENC_SHIFT_CH		0x04			// !Summer2016Update: encoder_shift_midi_channel -> Encoder shifted channel def
+#define DEF_ENC_SHIFT_CH		0x00			// JOLASOFT: Changed default to same as primary default channel
 #define DEF_ACTIVE_COLOR		51
 #define DEF_INACTIVE_COLOR      1
+#define DEF_ENC_SHIFT_CC		1			    // JOLASOFT: Added default for secondary knob cc
 
 // !Summer2016Update mark: Default Colors (first used in build 20160622
 #define DEF_ACTIVE_COLOR_BANK1		25
@@ -162,17 +140,6 @@
 #define DEF_INACTIVE_COLOR_BANK3      100
 #define DEF_ACTIVE_COLOR_BANK4		25
 #define DEF_INACTIVE_COLOR_BANK4      0
-
-
-// !Summer2016Update mark: Default Colors (last used in build 20160615)
-//~ #define DEF_ACTIVE_COLOR_BANK1		25
-//~ #define DEF_INACTIVE_COLOR_BANK1      0
-//~ #define DEF_ACTIVE_COLOR_BANK2		69
-//~ #define DEF_INACTIVE_COLOR_BANK2      0
-//~ #define DEF_ACTIVE_COLOR_BANK3		100
-//~ #define DEF_INACTIVE_COLOR_BANK3      0
-//~ #define DEF_ACTIVE_COLOR_BANK4		88
-//~ #define DEF_INACTIVE_COLOR_BANK4      0
 
 #define DEF_DETENT_COLOR        63
 #define DEF_INDICATOR_TYPE      BLENDED_BAR

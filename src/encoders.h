@@ -97,8 +97,7 @@
 		} display_type_t;
 
 		// Tag-Value table which holds the configuration for 1 encoder
-		//#define ENC_CFG_SIZE 14
-		#define ENC_CFG_SIZE 15
+		#define ENC_CFG_SIZE 16
 		#define ENC_REL_FINE_LIMIT 0x04 // how many 'ticks' per output when encoder is Relative and Fine
 		typedef union {  // Each of these fields is designed to be written to directly from MIDI Sysex Data
 			struct {     // - so you can only use 7-bits of these uint8_t's to store data.
@@ -117,6 +116,7 @@
 				uint8_t		    indicator_display_type;
 				uint8_t			is_super_knob;		
 				uint8_t			encoder_shift_midi_channel; // !Summer2016Update
+				uint8_t			encoder_shift_midi_number; // JOLASOFT UPDATE
 			};
 			uint8_t bytes[ENC_CFG_SIZE];
 		} encoder_config_t;
@@ -164,7 +164,6 @@
 		void refresh_display(void);
 		
 		void process_element_midi(uint8_t channel, uint8_t type, uint8_t number, uint8_t value, uint8_t state);
-		//void process_indicator_update(uint8_t idx, uint8_t value);
 		void process_indicator_update(uint8_t idx, uint8_t value, uint8_t shifted); // !Summer2016Update: Shifted Encoder Value Feedback
 		void process_sw_toggle_update(uint8_t idx, uint8_t value); // !Summer2016Update: Toggle State Feedback
 		void process_sw_encoder_shift_update(uint8_t idx, uint8_t value); // !Summer2016Update: Shifted Encoder Switch: Toggle State Feedback
