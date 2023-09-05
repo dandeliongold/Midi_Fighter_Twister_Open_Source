@@ -1017,8 +1017,6 @@ void send_encoder_midi(uint8_t banked_encoder_idx, uint8_t value, bool state, bo
 		encoder_settings[banked_encoder_idx].encoder_midi_number,
 		value);
 		if (encoder_settings[banked_encoder_idx].is_super_knob && (value >= global_super_knob_start)) {
-			// JOLASOFT:
-			uint8_t super_knob_midi_channel = shifted ? encoder_settings[banked_encoder_idx].encoder_midi_channel: encoder_settings[banked_encoder_idx].encoder_shift_midi_channel;
 			float step = 1/(((float)(global_super_knob_end - global_super_knob_start)) / 127.0f);
 					
 			uint16_t secondary_value = ((uint16_t)(step * (float)(value - global_super_knob_start)));
@@ -1028,10 +1026,9 @@ void send_encoder_midi(uint8_t banked_encoder_idx, uint8_t value, bool state, bo
 
 			MIDI_Device_Flush(g_midi_interface_info);
 					
-			//midi_stream_raw_cc(encoder_settings[banked_encoder_idx].encoder_midi_channel,
-			midi_stream_raw_cc(super_knob_midi_channel, // JOLASOFT
+			midi_stream_raw_cc(DEF_ENC_SHIFT_CH, // JOLASOFT (TODO: Why doesn't referencing encoder_settings[banked_encoder_idx].encoder_shift_midi_channel work??
 			encoder_settings[banked_encoder_idx].encoder_midi_number, // JOLASOFT
-			(uint8_t)secondary_value);		
+			(uint8_t)secondary_value);
 		}			
 	} else if (encoder_settings[banked_encoder_idx].encoder_midi_type == SEND_NOTE) {
 		midi_stream_raw_note(midi_channel,
