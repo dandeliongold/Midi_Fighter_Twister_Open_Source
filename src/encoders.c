@@ -1015,7 +1015,6 @@ void run_shift_mode(uint8_t page){
 void send_encoder_midi(uint8_t banked_encoder_idx, uint8_t value, bool state, bool shifted)
 {
 	uint8_t midi_channel = shifted ? encoder_settings[banked_encoder_idx].encoder_shift_midi_channel: encoder_settings[banked_encoder_idx].encoder_midi_channel;
-	// !revision resuse unused switch midi number for shifts: midi_number = shifted? encoder_midi_num/ switch_midi_num 20190806 
 	// Sending encoder as note is not useful so this can likely be simplified
 	// once incremental messages are added
 	if (encoder_settings[banked_encoder_idx].encoder_midi_type == SEND_CC || encoder_settings[banked_encoder_idx].encoder_midi_type == SEND_SWITCH_VEL_CONTROL)
@@ -1024,7 +1023,8 @@ void send_encoder_midi(uint8_t banked_encoder_idx, uint8_t value, bool state, bo
 		encoder_settings[banked_encoder_idx].encoder_midi_number,
 		value);
 		if (encoder_settings[banked_encoder_idx].is_super_knob && (value >= global_super_knob_start)) {
-
+			// JOLASOFT:
+			uint8_t super_knob_midi_channel = shifted ? encoder_settings[banked_encoder_idx].encoder_midi_channel: encoder_settings[banked_encoder_idx].encoder_shift_midi_channel;
 			float step = 1/(((float)(global_super_knob_end - global_super_knob_start)) / 127.0f);
 					
 			uint16_t secondary_value = ((uint16_t)(step * (float)(value - global_super_knob_start)));
@@ -1035,8 +1035,8 @@ void send_encoder_midi(uint8_t banked_encoder_idx, uint8_t value, bool state, bo
 			MIDI_Device_Flush(g_midi_interface_info);
 					
 			//midi_stream_raw_cc(encoder_settings[banked_encoder_idx].encoder_midi_channel,
-			midi_stream_raw_cc(midi_channel, 
-			encoder_settings[banked_encoder_idx].encoder_midi_number+64,
+			midi_stream_raw_cc(super_knob_midi_channel, // JOLASOFT
+			encoder_settings[banked_encoder_idx].encoder_midi_number, // JOLASOFT
 			(uint8_t)secondary_value);		
 		}			
 	} else if (encoder_settings[banked_encoder_idx].encoder_midi_type == SEND_NOTE) {
