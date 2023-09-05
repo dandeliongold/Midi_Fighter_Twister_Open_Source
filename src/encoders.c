@@ -609,25 +609,18 @@ bool process_encoder_input_rotary_detent(uint8_t i, uint8_t virtual_encoder_id, 
 #endif
 {
 	if (!encoder_settings[banked_encoder_id].has_detent) {
-		//midi_stream_raw_cc(9,99,1);
 		return false;
 	} else if (!encoder_is_in_detent(raw_encoder_value[virtual_encoder_id])) {
-		//midi_stream_raw_cc(9,99,2);
 		return false;
 	}
 
 
 	encoder_detent_counter[i] += new_value;
 	if (encoder_detent_counter[i] > g_detent_size){ // Exiting detent (CW)
-		//raw_encoder_value[virtual_encoder_id] = 6500;
 		raw_encoder_value[virtual_encoder_id] = encoder_detent_limit_high;
-		//midi_stream_raw_cc(9,99,11);
 	} else if (encoder_detent_counter[i] < -g_detent_size) { // Exiting detent (CCW)
-		//raw_encoder_value[virtual_encoder_id] = 6200;
 		raw_encoder_value[virtual_encoder_id] = encoder_detent_limit_low;
-		//midi_stream_raw_cc(9,99,12);
 	} else { // Still In Detent
-		//midi_stream_raw_cc(9,99,13);
 		// Patch: Ensure the Detent LED is set even for higher resolution modes, like velocity sensitivity
 		indicator_value_buffer[encoder_bank][i] = 63;
 	}
