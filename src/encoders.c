@@ -36,6 +36,7 @@
 // Constants
 const uint16_t encoder_detent_limit_low = 6240; // 6240 - ok for all modes (6250 causes high res mode to hit '64' on the way up)
 const uint16_t encoder_detent_limit_high = 6450; // 6450 - ok for all modes, (note: scale_encoder_value adds 50 to these "raw" values in velocity calc)
+const bool ALLOW_ABSOLUTE_MODE_DEADZONE = true; // JOLASOFT
 
 // Locals
 
@@ -637,7 +638,7 @@ bool process_encoder_input_rotary_detent(uint8_t i, uint8_t virtual_encoder_id, 
 	uint16_t value = raw_encoder_value[virtual_encoder_id];
 	if (encoder_settings[banked_encoder_id].encoder_midi_type == SEND_REL_ENC || encoder_settings[banked_encoder_id].encoder_midi_type == SEND_REL_ENC_MOUSE_EMU_DRAG || encoder_settings[banked_encoder_id].encoder_midi_type == SEND_REL_ENC_MOUSE_EMU_SCROLL) {
 		return false;
-	} else if (!encoder_is_in_deadzone(value)) {
+	} else if (!encoder_is_in_deadzone(value) || ALLOW_ABSOLUTE_MODE_DEADZONE) { // JOLASOFT: Allow deadzone since we clamp anyway
 		return false;
 	}
 	// The encoder is in a end zone, only change the encoder value
