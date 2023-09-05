@@ -287,8 +287,7 @@ void sysExCmdBulkXfer(uint8_t length, uint8_t* buffer) // Process/ParseSysexMess
 									 21, enc_cfg.detent_color,	
 									 22, enc_cfg.indicator_display_type,
 									 23, enc_cfg.is_super_knob,
-									 24, enc_cfg.encoder_shift_midi_channel, // TODO: why is this one not +1?
-									 25, enc_cfg.encoder_shift_midi_number, // JOLASOFT
+									 24, enc_cfg.encoder_shift_midi_channel, // !Summer2016Update
 									};
 				
 			// Total number of bytes to transfer
@@ -311,9 +310,9 @@ void sysExCmdBulkXfer(uint8_t length, uint8_t* buffer) // Process/ParseSysexMess
 								sysex_tag,
 								part, // Part 'part' of 'total'
 								total,
-								size, // 25 bytes maximum size
+								size, // 24 bytes maximum size
 								0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,
-								0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7}; // JOLASOFT: added another value
+								0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7,0xf7};
 									
 				// Copy the data into the payload
 				for (uint8_t idx=10; idx < size+10; ++idx) {
@@ -405,4 +404,3 @@ void config_factory_reset(void)
 	// Encoder Settings
 	factory_reset_encoder_config();
 }
-

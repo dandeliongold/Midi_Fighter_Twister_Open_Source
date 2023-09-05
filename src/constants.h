@@ -126,10 +126,9 @@
 #define DEF_ENC_MIDI_TYPE       SEND_CC			// Default to CC define as 0x00 for Note
 #define DEF_ENC_CH		        0x00            // Enc def Ch = 0
 #define DEF_SW_CH		        0x01            // SW  def Ch = 1
-#define DEF_ENC_SHIFT_CH		0x00			// JOLASOFT: Changed default to same as primary default channel
+#define DEF_ENC_SHIFT_CH		0x04			// !Summer2016Update: encoder_shift_midi_channel -> Encoder shifted channel def
 #define DEF_ACTIVE_COLOR		51
 #define DEF_INACTIVE_COLOR      1
-#define DEF_ENC_SHIFT_CC		1			    // JOLASOFT: Added default for secondary knob cc
 
 // !Summer2016Update mark: Default Colors (first used in build 20160622
 #define DEF_ACTIVE_COLOR_BANK1		25
