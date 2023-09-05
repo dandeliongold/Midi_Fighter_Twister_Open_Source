@@ -269,7 +269,7 @@ void get_encoder_config(uint8_t bank, uint8_t encoder, encoder_config_t *cfg_ptr
 	cfg_ptr->has_detent				= (buffer[4] >> 7) & 0x01;
 	cfg_ptr->indicator_display_type = buffer[5] & 0x03;
 	cfg_ptr->movement				= (buffer[5] >> 2) & 0x03;
-	cfg_ptr->encoder_shift_midi_channel = (buffer[5] >> 4) & 0x0F; // !Summer2016Update: Shifted Encoder MIDI Channel
+	cfg_ptr->encoder_shift_midi_channel = DEF_ENC_SHIFT_CH; // JOLASOFT: TODO: Why do we have to force this now?
 	cfg_ptr->encoder_midi_type		= buffer[6] & 0x07; // !Spring2019Update: Added Switch Velocity Control and Mouse Emulation
 	cfg_ptr->encoder_midi_channel   = (buffer[6] >> 4) & 0x0F;
 	cfg_ptr->encoder_midi_number	= buffer[7] & 0x7F;
